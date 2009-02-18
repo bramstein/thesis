@@ -1,5 +1,5 @@
 \section{Canvas}
-The canvas module is responsible for setting up view-ports and drawing axes, labels and the (optional) grid. It supports three different types of axes: Cartesian, polar and categorical (which is a special instance of a Cartesian axis). Depending on the axes and drawing options given to it, it sets up a correct view-port and draws axes, tick marks, labels and the grid. 
+The canvas module is responsible for setting up view-ports and drawing axes, labels and an optional grid. It supports three different types of axes: Cartesian, polar and categorical (which is a special instance of a Cartesian axis). Depending on the axes and drawing options given to it, it sets up a correct view-port and draws axes, tick marks, labels and the grid. 
 
 The canvas module accepts an options object which should at least contain two Cartesian axes, or a polar axes. It might optionally also accept a hint for the aspect ratio of the canvas, and various boolean settings for turning on or off the drawing of---for example---axis lines, tick marks, labels, etcetera. Although all drawing options can be changed by the user, the defaults are chosen sensibly so as to cover most of the use cases. This results in the following default visual output:
 
@@ -30,6 +30,3 @@ The aspect ratio defines the dimensions of a chart. The ratio itself is defined 
 The total size of a canvas is divided into two areas: a data area surrounded by padding necessary to contain all the labels.
 
 (TODO: add image showing the outlines)
-
-%[1] Weisstein, Eric W. "Golden Ratio." From MathWorld--A Wolfram Web Resource. URL <http://mathworld.wolfram.com/GoldenRatio.html>, Visited: 2009-02-15
-%[2] Few, Stephen, "Show me the numbers", p. 209-210, ISBN: 0-970601-99-9.

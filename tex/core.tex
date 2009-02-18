@@ -26,7 +26,7 @@ Without Array Extra's this would have to be implemented using a for loop and acc
 The additional helper functions included are methods that are strangely omitted from the JavaScript specification, such as a \code{peek} function (\code{pop} and \code{push} are available), contains (to check if an array contains a value), and an \code{isEmpty} method to test for empty arrays.
 
 \subsection{Object Extensions}
-In contrast to the other extension modules, the object module does not extend the \code{Object} prototype, which is considered bad practice\cite{arvidsson05}. Instead the module extends the the global \code{Object} object. The consequence is that methods in the extension module should be called with an Object prefix and have the object they operate on passed in as the first argument.
+In contrast to the other extension modules, the object module does not extend the \code{Object} prototype, which is considered bad practice \cite{arvidsson05}. Instead the module extends the the global \code{Object} object. The consequence is that methods in the extension module should be called with an Object prefix and have the object they operate on passed in as the first argument.
 
 So instead of:
 \begin{verbatim}
@@ -41,7 +41,7 @@ The most important function in the object module is \code{extends}, which takes 
 
 The Array Extra's functions are very useful in dealing with arrays. Unfortunately they do not work transparently on objects. For that reason, the object module introduces the same methods contained in the Array Extra's but tailored to deal with objects. This means that functions such as \code{forEach}, \code{map}, \code{reduce}, \code{filter}, \code{every}, and \code{some} can also be used on objects. The functionality and interface is identical to the Array Extra's.
 
-Other functions added to the global Object are designed for more accurate type checking. Although JavaScript is dynamically typed, it is sometimes useful to check for the type of a variable, as the builtin \code{typeof} has some rather severe problems \cite{typeof}. There are functions for checking the types of: atoms, numbers, strings, booleans, arrays, and functions. Combined with the array or object extra extensions, it makes it very easy to do input validation. For example, to check if all values in an array are of the type \code{number} we can just write:
+Other functions added to the global Object are designed for more accurate type checking. Although JavaScript is dynamically typed, it is sometimes useful to check for the type of a variable, as the builtin \code{typeof} has some rather severe problems\footnote{For example \code{typeof Array} returns \code{object}.}. There are functions for checking the types of: atoms, numbers, strings, booleans, arrays, and functions. Combined with the array or object extra extensions, it makes it very easy to do input validation. For example, to check if all values in an array are of the type \code{number} we can just write:
 \begin{verbatim}
   // returns false (third argument is a string)
   [1, 2, '3'].every(Object.isNumber);
