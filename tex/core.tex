@@ -81,9 +81,13 @@ The \code{defaults} function is similar to \code{curry} except that it only "cur
   myAdd(2, 6); // returns 8
 \end{verbatim}
 \subsection{Mathematics Extensions}
-The math module extends the Math prototype with a set of new methods for rounding, generating correct random integers [TODO: Graphics Gems], and measuring number properties such as accuracy, precision and the number of digits.
+The math module extends the Math prototype with a set of new methods for rounding, generating correct random integers\cite{glassner90}, and measuring number properties such as accuracy, precision and the number of digits.
 
-The math module also implements interval arithmetic. (TODO: more...)
+The math module also implements interval arithmetic \cite{rokne95}. Interval arithmetic is a method to guarantee upper and lower bounds on imprecise calculations. For example, rounding errors often occur in computer arithmetic due to having only limited precision available in computers. Instead of returning a imprecise exact number to a calculation, interval arithmetic returns a interval which contains the solution. The calculation can then be performed again if more precision in the results are required (or less.)
+
+The interval sub module implements a normal arithmetic functions (add, subtract, multiply, etcetera.) as well as sin, logarithms, powers, exponents, and square roots. Additionally it defines a set of helper functions for determining equality of intervals and inclusion tests. An interval is defined in the module as a JavaScript object with a to and from property which represents the lower and upper bound of the interval respectively.
+
+The chart library uses the interval module extensively, for example as data ranges, or in plotting functions. Data plotting using interval arithmetic is described in a later chapter.
 
 \subsection{Getter and Setter Properties}
 The property module adds support for adding getter and setter properties to any object. In fact, it acts as a factory for creating functions that add getter and setter properties to objects. A getter and setter property is defined as a method that when called without a parameter returns the value of its property and when called with a parameter to set the value of the property to that value.

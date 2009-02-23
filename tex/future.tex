@@ -1,9 +1,48 @@
 \chapter{Future work}
 
 \section{Scalable Vector Graphics}
+The current implementation of the chart library uses the HTML5 Canvas element to render its charts. Instead it would also have been possible to use the Scalable Vector Graphics support available in some browsers (or all if browser plugins are considered support.) SVG has better support for text than the Canvas element, which might be an advantage. Browser support is near identical; both require a plugin or emulation on Internet Explorer, and have decent support on the other browsers. A future version of the chart library could also support an SVG rendering backend, depending on which approach to graphics on the web gains more traction. A simple implementation could replace the graphics module with one that creates an SVG image.
 
 \section{Server Side Charts}
+While rendering charts on the client side has many advantages, such as the possibility for user interaction, and adaption to the users' environment, it might also be advantageous to render the charts on the server side, for example as a fall-back for browsers that do not natively support the HTML5 Canvas element. A server side implementation can be done with only minor changes to the chart library, by simulating a browser environment on the server. Server side implementations of the browser Document Object Model (DOM) already exist  in the form of a JavaScript implementation \cite{resig07} running on top of the Mozilla Rhino JavaScript engine\footnote{Rhino: JavaScript for Java, \url{http://www.mozilla.org/rhino/}}. Because the Rhino JavaScript engine is written in the Java programming language it has the capability to call "native" Java functions and APIs from JavaScript. 
+
+The DOM implementation cited above could be enhanced with support for the HTML5 Canvas element which simply maps the API calls to the Java 2D API. From there it would be possible to convert the Java 2D frame buffer into an image and serve it to the client. Apart from retrieving the frame buffer and serving it as an image, the chart library would be completely unaware that it was running on the server and as such only requires minimal modification.
 
 \section{Chart types}
+The chart library currently only supports a handful of chart types (bar, line, scatter, and function plots). This is not a limitation of the design of the library, in fact the modular design and flexible standard components make it very easy to develop additional chart types. For example, the following types would also be useful to support:
+\begin{itemize}
+\item Small multiples
+\item Spark lines
+\item Range charts
+\end{itemize}
+
+Small multiples\cite{tufte01} are a number of charts of the same type and same range, but different data displayed in a grid formation so as to quickly compare the differences in the data. This can be implemented in the chart library by creating a composite chart type that internally uses a grid layout to order the individual charts. 
+
+Spark lines\cite{tufte06} are small in-line charts that display a trend. This might simply be a variant on the line chart code, without drawing a grid or labels.
+
+Range charts can take various forms, for example range bars, or high-low charts. 
+
+\section{Interactive charts}
+The chart library does not currently offer any user interaction. This could also be a future development direction, for example adding support for tool tips and rollovers for data points or labels could significantly enhance its usability. Another type of user interaction could be navigation (for example zooming in and out) on some chart types to reveal details or overall trends. Another use of interactive charts could be for data that is continuously updated such as server statistics or status information for use in a so-called dashboard \cite{few06}.
 
 \section{Web page integration}
+Currently the chart library takes a JSON object as data input. To enhance ease of use it would be interesting to take a HTML table as input to the charting engine. This would involve the creation of a HTML table parser and a chart recommendation engine. 
+
+The HTML table parser could make heavy use of the pattern matching implementation by rewriting a JSON serialization of the table element tree into a format that the charting library supports. The \code{thead} and \code{tfoot} sections of a table could be used as a source for the meta data and the \code{tbody} section as the source for the actual data. Depending on the structure of the \code{thead} and \code{tfoot} section, both categories and subcategories could be reconstructed and the data parsed accordingly. Both sections and use of the \code{th} element can also be used to detect whether a table is unidirectional or bidirectional.
+
+Once the table data is in a format that the charting library understands, another component would take over and decide which chart type would be most suitable for displaying the data. This component could be built using a rules engine (an expert system) [TODO: ref to MS chart recommendation engine]. This engine should naturally be extensible by the user of the charting library because it is impossible to predict all the types of data it could encounter. It should however have standard heuristics and parsers for recognizing dates, nominal and qualitative data.
+
+Non data elements are all element values not in data elements (\code{td} element). They are all treated as categorical (qualitative) attributes (combined with a few special cases for detecting ordinal values).
+
+The classification of attributes is however only a suggestion and can be overridden by adding additional class attributes to rows or columns, in order not to restrict the user in her choice of visualization.
+
+\begin{quotation}
+Attempts to narrow the range of relationships that may be considered, restrict the transformations that may be applied, or proscribe the statistics that may be computed limit our ability to detect anomalies. Text books and computer programs that enforce such an approach to data mislead their readers and users \cite{velleman93}.
+\end{quotation}
+
+Data elements are treated as qualitative when they contain text values and quantitative when they contain numeric values. This simple classification will be supplanted by additional heuristics to detect---for example---numerical nominal values such as product ID numbers. This can be done by calculating the Gini value for these values and reclassifying low values as nominal or ordinal (ordinal is more likely here, as number have an intrinsic order and can thus always be considered ordinal). 
+
+\section{ASCII Math parser}
+Currently the functions plotted by the plot chart plugin must be written using the functions in the interval module. Although the module contains most mathematical constructs in the form of methods, writing equations this way is complicated and prone to errors.
+
+Instead the plot plugin could integrate a ASCIIMathML parser \cite{jipsen07}, which accepts an ASCII formatted equation and returns a MathML tree. MathML is an XML specification for encoding mathematic equations\footnote{For more information, see: \url{http://www.w3.org/Math/}}. The MathML tree could be rewritten to output equations using interval arithmetic. These equations would then be used as input to the plot plugin.
