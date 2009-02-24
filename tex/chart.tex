@@ -1,4 +1,2 @@
 \section{Chart}
 Each chart plugin is an instance of the chart super \emph{class}\footnote{The word \emph{class} here does not imply classical inheritance, but rather a module that shares the same methods and some state with another module.}. The chart module takes care of the repetitive tasks, such as maintaining a layout, validating data, setting up a graphics context, parsing user options and so forth. Internally it holds the layout manager, title object, the legend object, a graphics context and a canvas object.
-
-The canvas is the area filled with data elements, such as axes, grids, lines, bars, points, etc. A chart contains a canvas and several supporting elements, such as titles and legends.
