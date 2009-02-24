@@ -1,11 +1,65 @@
 \section{Data}
 The data module defines several data relationships their corresponding input formats and validation functions. The chart plug-ins use these relationship definitions to declare the input they accept. Because not every data relationship can be predefined the data module is made extensible so that custom relationships can be constructed while still using some of the built in functionality.
 
-A chart plug-in is not limited to accepting a single data relationship, it can declare an array of (mutually exclusive) data relationships. The following sections explain the definitions and input formats of the available data relationships.
+A chart plug-in is not limited to accepting a single data relationship, it can declare an array of data relationships. The following list shows the definitions the available data relationships \cite{few06}:
 
-\subsection{Part to Whole}
+\begin{description}
+\item[Nominal comparison] To compare quantitative values for one or more categories.
+\item[Time series] To display a relationship between quantitative values belonging to one or more categories and subdivisions of time.
+\item[Distribution] To display the distribution of quantitative values over a range.
+\item[Correlation] To display the correlation between a set of quantitative values.
+\item[Function] To display an equation visually.
+\end{description}
 
-\subsection{Correlation}
+The two relationships which are not mentioned are: part to whole, and ranking, have no explicit relationship type as they can be defined in terms of the other relationships. For example, ranking is an ordered nominal comparison (ordinal), and part to whole is a nominal comparison with sub categories.
 
-\subsection{Time Series}
+The data module accepts a single data object which contains both the data and meta-data. The meta-data properties consists of \code{categories} and \code{subcategories}, which are both optional. The overall structure of the data object is as follows:
+\begin{alltt}
+  var data = \{
+    categories: [\ldots],
+    subcategories: [\ldots],
+    data: [\ldots]
+  \};
+\end{alltt}
 
+All of the properties must be arrays. Both \code{category} and \code{subcategory} must not contain nested arrays. Sub-categories are the same for each category, which is enforced by the design of the data object. Although categories and sub-categories are nominal---and thus have no order---arrays are used because it is often desired to order them in a user defined way. The data format has no intrinsic time series type, but because categories are ordered they can be used for that purpose. The data property can contain nested arrays, depending on if and how the \code{categories} and \code{subcategories} properties are used.
+\begin{verbatim}
+  var data = {
+    categories: ['West', 'East'],
+    data: [10, 12]
+  };
+\end{verbatim}
+
+When \code{subcategories} is specified the data looks as follows, to---for example---define a time series with categories:
+\begin{verbatim}
+  var data = {
+    categories: ['2001', '2002'],
+    subcategories: ['West', 'East'],
+    data: [
+      [131, 120],
+      [119, 141]
+    ]
+  };
+\end{verbatim}
+
+When none of the above rules meet the data, nested arrays are treated as multiple variables. For example, when the following data is given to chart that supports multiple variables it will be treated as $x, y$ coordinates in a single category.
+
+\begin{verbatim}
+  var data = {
+    data: [
+        [12, 4],
+        [3, 11],
+        [11, 2]
+    ]
+  };
+\end{verbatim}
+
+Normal JavaScript functions can be used to plot functions:
+
+\begin{verbatim}
+  function sine(x) {
+    return Interval.sin(x);
+  }
+\end{verbatim}
+
+The function is called using an interval and must also return an interval. Function plotting is explained in more detail in Chapter 3.5.
