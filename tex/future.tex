@@ -14,6 +14,7 @@ The chart library currently only supports a handful of chart types (bar, line, s
 \item Small multiples
 \item Spark lines
 \item Range charts
+\item Stacked Graphs
 \end{itemize}
 
 Small multiples\cite{tufte01} are a number of charts of the same type and same range, but different data displayed in a grid formation so as to quickly compare the differences in the data. This can be implemented in the chart library by creating a composite chart type that internally uses a grid layout to order the individual charts. 
@@ -21,6 +22,8 @@ Small multiples\cite{tufte01} are a number of charts of the same type and same r
 Spark lines\cite{tufte06} are small in-line charts that display a trend. This might simply be a variant on the line chart code, without drawing a grid or labels.
 
 Range charts can take various forms, for example range bars, or high-low charts. 
+TODO: Stacked Graphs \cite{byron08}.
+
 
 \section{Interactive charts}
 The chart library does not currently offer any user interaction. This could also be a future development direction, for example adding support for tool tips and rollovers for data points or labels could significantly enhance its usability. Another type of user interaction could be navigation (for example zooming in and out) on some chart types to reveal details or overall trends. Another use of interactive charts could be for data that is continuously updated such as server statistics or status information for use in a so-called dashboard \cite{few06}.
@@ -46,3 +49,6 @@ Data elements are treated as qualitative when they contain text values and quant
 Currently the functions plotted by the plot chart plugin must be written using the functions in the interval module. Although the module contains most mathematical constructs in the form of methods, writing equations this way is complicated and prone to errors.
 
 Instead the plot plugin could integrate a ASCIIMathML parser \cite{jipsen07}, which accepts an ASCII formatted equation and returns a MathML tree. MathML is an XML specification for encoding mathematic equations\footnote{For more information, see: \url{http://www.w3.org/Math/}}. The MathML tree could be rewritten to output equations using interval arithmetic. These equations would then be used as input to the plot plugin.
+
+\section{Harmonized colours}
+
