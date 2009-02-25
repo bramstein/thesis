@@ -65,8 +65,8 @@ Usually, object methods in JavaScript have a \code{this} property refering to th
   function print() {
     console.log(this.firstname + " " + this.lastname);
   }
-  var myPrint = print.bind({ firstname: 'Bender', lastname: 'Rodríguez' });
-  myPrint(); // prints "Bender Rodríguez"
+  var myPrint = print.bind({ firstname: 'Bender', lastname: 'Rodriguez' });
+  myPrint(); // prints "Bender Rodriguez"
 \end{verbatim}
 Given the \code{add} function used in the Array extensions sub chapter:
 \begin{verbatim}
@@ -157,22 +157,28 @@ Pattern matching can also be used with Sjoerd Visscher's Algebraic data type lib
 \end{verbatim}
 In JavaScript---using the ADT library---it looks like this (note that this binary tree is not polymorphic, its values are numbers.)
 \begin{verbatim}
-  var BinaryTree = Data(function(binarytree) ({
+  var BinaryTree = Data(function (binarytree) ({
     Void : {},
-    Bt: {
-        v: Number, L: binarytree, R: binarytree
-    }
+    Bt: { v: Number, L: binarytree, R: binarytree }
   }));
 \end{verbatim}
-We can then create a simple binary tree instance using this definition. A visual representation of this binary tree is shown on the right.
+We can then create a simple binary tree instance using this definition. A visual representation of this binary tree is shown in Figure \ref{btree}. 
 \begin{verbatim}
   var bt = Bt(4, 
-             Bt(2, Bt(1,Void,Void), 
-                   Bt(3,Void,Void)), 
-             Bt(8, Bt(6, Bt(5,Void,Void), 
-                         Bt(7,Void,Void)), 
-                   Bt(9,Void,Void)));
+      Bt(2, Bt(1,Void,Void), 
+            Bt(3,Void,Void)), 
+      Bt(8, Bt(6, Bt(5,Void,Void), 
+                  Bt(7,Void,Void)), 
+            Bt(9,Void,Void)));
 \end{verbatim}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.3\linewidth]{btree}
+\caption{Binary tree}
+\label{btree}
+\end{figure}
+
 We can now define various functions, for example to calculate the number of leafs (nodes without children) in the tree, or a function to test whether a value is a member of the binary tree. It is possible to use the data types in patterns, for example the \code{numLeafs} method first matches on an empty node, then a leaf node and finally on any other kind of node. The \code{isMember} method shows that the matching is not limited to one function parameter; the value to search for is taken as the first parameter and the binary tree as the second parameter.
 \begin{verbatim}
   var numLeafs = fun(
@@ -209,11 +215,3 @@ The following two functions return a list of all the elements using in order and
   preorder(bt);     // [4,2,1,3,8,6,5,7,9]
 \end{verbatim}
 A real implementation of a binary tree would of course not use the data types and functions defined in this article for performance reasons, but a binary tree serves as a good introduction to both pattern matching and algebraic data types in JavaScript.
-
-%[1] New in JavaScript 1.6, Mozilla Developer Center, URL <https://developer.mozilla.org/en/New_in_JavaScript_1.6>, Visited: 2009-02-13.
-%[2] New in JavaScript 1.8, Mozilla Developer Center, URL <https://developer.mozilla.org/en/New_in_JavaScript_1.8>, Visited: 2009-02-13.
-%[3] Extending Object.prototype considered harmful
-%[4] Graphics Gems XX
-%[5] JavaScript: The Good Parts, Douglas Crockford, O'Reilly, ISBN: 978-0-596-51774-8
-%[6] Conditional (programming), Pattern Matching, Wikipedia, URL <http://en.wikipedia.org/wiki/Conditional_statement#Pattern_matching>, Visited: 2009-02-13
-%[7] Sjoerd Visser, Algebraic Data Types in JavaScript, URL <http://w3future.com/weblog/stories/2008/06/16/adtinjs.xml>, Visited: 2009-02-13, Created: 2008-06-16.

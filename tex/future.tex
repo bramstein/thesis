@@ -8,7 +8,7 @@ While rendering charts on the client side has many advantages, such as the possi
 
 The DOM implementation cited above could be enhanced with support for the HTML5 Canvas element which simply maps the API calls to the Java 2D API. From there it would be possible to convert the Java 2D frame buffer into an image and serve it to the client. Apart from retrieving the frame buffer and serving it as an image, the chart library would be completely unaware that it was running on the server and as such only requires minimal modification.
 
-\section{Chart types}
+\section{Support for more chart types}
 The chart library currently only supports a handful of chart types (bar, line, scatter, and function plots). This is not a limitation of the design of the library, in fact the modular design and flexible standard components make it very easy to develop additional chart types. For example, the following types would also be useful to support:
 \begin{itemize}
 \item Small multiples
@@ -49,6 +49,3 @@ Data elements are treated as qualitative when they contain text values and quant
 Currently the functions plotted by the plot chart plugin must be written using the functions in the interval module. Although the module contains most mathematical constructs in the form of methods, writing equations this way is complicated and prone to errors.
 
 Instead the plot plugin could integrate a ASCIIMathML parser \cite{jipsen07}, which accepts an ASCII formatted equation and returns a MathML tree. MathML is an XML specification for encoding mathematic equations\footnote{For more information, see: \url{http://www.w3.org/Math/}}. The MathML tree could be rewritten to output equations using interval arithmetic. These equations would then be used as input to the plot plugin.
-
-\section{Harmonized colours}
-

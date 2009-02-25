@@ -29,7 +29,16 @@ Some implementations will stroke the path with a line width of 2, while others w
 The last optional parameter is polar, which, when turned on, transforms the coordinates to all drawing methods from polar to Cartesian. This makes it possible to also transparently plot polar data.
 
 \subsection{Crisp line drawing}
-Although it has support for some vector operations, the HTML5 Canvas element is not a vector based API, it basically draws bitmaps. As such, it becomes a necessity to manually ensure that lines are drawn on screen pixels instead of on pixel boundaries resulting in an approximation (blurred lines.)\cite{shepherd08} (TODO: clarify this with a picture) The graphics module internally ensures that all lines and rectangles are drawn on screen pixels and never on the boundaries. As this "rounding" to screen pixels is done consistently, the resulting image is not affected, other than being slightly moved up or down (depending on the implementation of the rounding.)
+Although it has support for some vector operations, the HTML5 Canvas element is not a vector based API, it basically draws bitmaps. As such, it becomes a necessity to manually ensure that lines are drawn on screen pixels instead of on pixel boundaries resulting in an approximation\cite{shepherd08} (blurred lines.) Figure \ref{crisp} shows two lines on a pixel grid. The red lines indicate the vector representation of the lines, and the blue filled area the actual screen pixels. The first line is drawn on pixel boundaries and thus results in an approximation, the right line on the other hand is drawn at exactly the center of a pixel and thus results in a crisp line drawing.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.35\linewidth]{crisp}
+\caption{Approximated line and crisp drawn line}
+\label{crisp}
+\end{figure}
+
+The graphics module internally ensures that all lines and rectangles are drawn on screen pixels and never on the boundaries. As this "rounding" to screen pixels is done consistently, the resulting image is not affected, other than being slightly moved up or down (depending on the implementation of the rounding.)
 
 \subsection{Fonts/Text support}
 Unfortunately font and text drawing support in the HTML5 Canvas element is not well developed at the moment. Only Firefox 3.1 and Safari implement a standardized text drawing API. Firefox also offers its own alternative text drawing API. Both Internet Explorer and Opera have no support for drawing text on a HTML5 Canvas (Internet Explorer does in fact not support the Canvas element at all.) The standardized text API is also severely lacking in functionality. For example, it is possible to retrieve the width of a string in pixels, but not the height. Text is not treated as a set of paths, but drawn directly on the canvas through two separate \code{fillText} and \code{strokeText} functions. Strangely enough, the alternative Firefox text API does offer support for treating text as paths, and offers the ability to then stroke or fill those paths. Direct drawing versus paths is a not a big issue in the development of this chart library, but the font metrics problems are a big issue when aligning labels, legends, and titles.
