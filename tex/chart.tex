@@ -1,2 +1,22 @@
 \section{Chart}
-Each chart plugin is an instance of the chart super \emph{class}\footnote{The word \emph{class} here does not imply classical inheritance, but rather a module that shares the same methods and some state with another module.}. The chart module takes care of the repetitive tasks, such as maintaining a layout, validating data, setting up a graphics context, parsing user options and so forth. Internally it holds the layout manager, title object, the legend object, a graphics context and a canvas object.
+Each chart plug-in is an instance of the chart super \emph{class}\footnote{The word \emph{class} here does not imply classical inheritance, but rather a module that shares the same methods and some state with another module.}. The chart module takes care of the repetitive tasks, such as maintaining a layout, validating data, setting up a graphics context, parsing user options and so forth. Chart plug-ins can "inherit" from the chart module in the following way:
+
+\begin{verbatim}
+  Object.extend(defaults.type, {
+     myChart: function (canvasIdentifier, data, options) {
+       var that = {},
+           my = {};
+   
+       that = chart(canvasIdentifier, options, my);
+       
+       Object.extend(that, {
+         plot: function (g) {
+           // draw the chart
+         }
+       });
+       return that;
+     }
+  });
+\end{verbatim}
+
+This example first extends the \code{defaults.type} object discussed in the last section with a new chart type called \code{myChart}. It then creates two empty objects, one for the chart plug-in itself and one for any shared private (protected in classical inheritance) called \code{my}. The \code{that} object is then initialized using the chart constructor. The chart constructor parses the options and returns a chart component. The code then continues by overriding the plot function, which is called internally by the chart when it is drawn. When the plot function is called, the chart has already set up a view-port and drawn the axes and labels. This makes it especially easy to create new chart plug-ins. Plug-in authors can "inherit" from the chart module, perform any custom data parsing or validation and draw their chart in the plot function.

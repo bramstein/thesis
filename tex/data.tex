@@ -1,5 +1,5 @@
 \section{Data}
-The data module defines several data relationships their corresponding input formats and validation functions. The chart plug-ins use these relationship definitions to declare the input they accept. Because not every data relationship can be predefined the data module is made extensible so that custom relationships can be constructed while still using some of the built in functionality.
+The data module defines several data relationships and their corresponding input formats and validation routines. The chart plug-ins use these relationship definitions to declare the input they accept. Because not every data relationship can be predefined the data module is made extensible so that custom relationships can be constructed while still using some of the built in functionality.
 
 A chart plug-in is not limited to accepting a single data relationship, it can declare an array of data relationships. The following list shows the definitions the available data relationships \cite{few06}:
 
@@ -11,7 +11,7 @@ A chart plug-in is not limited to accepting a single data relationship, it can d
 \item[Function] To display an equation visually.
 \end{description}
 
-The three relationships which are not mentioned are: part to whole, ranking, and deviation have no explicit relationship type as they can be defined in terms of the other relationships. For example, deviation is a nominal comparison to a baseline, ranking is an ordered nominal comparison (ordinal), and part to whole is a nominal comparison with sub categories.
+The three relationships which are not mentioned are: part to whole, ranking, and deviation. They have no explicit relationship type as they can be defined in terms of the other relationships. For example, deviation is a nominal comparison to a baseline, ranking is an ordered nominal comparison (ordinal), and part to whole is a nominal comparison with sub categories.
 
 The data module accepts a single data object which contains both the data and meta-data. The meta-data properties consists of \code{categories} and \code{subcategories}, which are both optional. The overall structure of the data object is as follows:
 \begin{alltt}
@@ -22,7 +22,7 @@ The data module accepts a single data object which contains both the data and me
   \};
 \end{alltt}
 
-All of the properties must be arrays. Both \code{category} and \code{subcategory} must not contain nested arrays. Sub-categories are the same for each category, which is enforced by the design of the data object. Although categories and sub-categories are nominal---and thus have no order---arrays are used because it is often desired to order them in a user defined way. The data format has no intrinsic time series type, but because categories are ordered they can be used for that purpose. The data property can contain nested arrays, depending on if and how the \code{categories} and \code{subcategories} properties are used.
+All of the properties must be arrays. Both \code{category} and \code{subcategory} must not contain nested arrays. Sub-categories are the same for each category, which is enforced by the design of the data object. Although categories and sub-categories are nominal---and thus have no order---arrays are used because it is often desired to order them in a user defined way. The data format has no intrinsic time series type either, but because categories are ordered they can be used for that purpose. The data property can contain nested arrays, depending on if, and how, the \code{categories} and \code{subcategories} properties are used.
 \begin{verbatim}
   var data = {
     categories: ['West', 'East'],

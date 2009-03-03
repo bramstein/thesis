@@ -1,6 +1,5 @@
 \chapter{Architecture \& Design}
-The design of the chart library is based on the concept of modules, pieces of self-contained code that interact with each other through public interfaces\footnote{This is similar to object oriented programming, I have not used that term here to avoid confusion with classical object oriented programming, which is not supported in JavaScript in favour of prototypical inheritance. For more information on classical inheritance versus prototypical inheritance see 
-\cite{crockford08}.}.
+The architecture of the chart library is based on the concept of modules; pieces of self-contained code that interact with each other through public interfaces\footnote{This is similar to object oriented programming. I have not used that term here to avoid confusion with classical object oriented programming, which is not supported in JavaScript in favour of prototypical object oriented programming. For more information on classical objected oriented programming versus prototypical object oriented programming see \cite{crockford08}.}. The chart library is split in two sections: one part provides the core functionality for creating charts in the form of modules, and the other consists of a set of plugins that actually implement the desired chart functionality using the core modules. The core modules are described in this chapter, while the actual chart plugins will be described in the next chapter.
 \input{./tex/core.tex}
 \input{./tex/layout.tex}
 \input{./tex/axis.tex}
@@ -9,5 +8,5 @@ The design of the chart library is based on the concept of modules, pieces of se
 \input{./tex/canvas.tex}
 \input{./tex/data.tex}
 \input{./tex/graphics.tex}
-\input{./tex/chart.tex}
 \input{./tex/colours.tex}
+\input{./tex/chart.tex}

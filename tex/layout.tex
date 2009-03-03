@@ -1,11 +1,11 @@
 \section{Layout}
 The layout module provides layout algorithms for laying out components. A component is an abstraction; it can be implemented in many ways, for example as items in a HTML5 Canvas drawing or as HTML elements. The module currently provides three layout algorithms: border, which lays out components in five different regions; grid, which lays out components in a user defined grid, and flex-grid which offers a grid with flexible column and row sizes.
 
-The design of the layout module is inspired by the Java Swing layout managers \cite{sun08} and my own OpenGL based User Interface library \cite{stein06}. The module itself is not part of the core charting library but distributed as a separate library \cite{stein08} and bundled with a jQuery plugin for laying out HTML elements.
+The design of the layout module is inspired by the Java Swing layout managers \cite{sun08} and my own OpenGL based User Interface library \cite{stein06}. The module itself is not part of the core charting library but distributed as a separate library \cite{stein08} and bundled with a jQuery plug-in for laying out HTML elements.
 
 We start with the definition of a component; a component is something that has a minimum size, a preferred size, and a maximum size. It also has a method to set its size and position. A container is a component that contains other components and lays them out according to a layout algorithm (which are provided in the layout module.) Components need to satisfy the following interface requirements in order to be used with the layout algorithms; the component should have a:
 \begin{itemize}
-\item \code{bounds} property which returns the location and dimensions of the component;
+\item \code{bounds} property which returns the location and dimension of the component;
 \item \code{preferredSize}, \code{maximumSize}, and \code{minimumSize} properties which return the preferred, minimum and maximum size of the component respectively;
 \item \code{insets} property which returns the offset between a container and its contents;
 \item \code{isVisible} method which returns true if the component is visible;
@@ -58,10 +58,10 @@ The following example lays out four components in a 2x2 grid, without any spacin
 \label{grid}
 \end{figure}
 
-If the number of rows is given, the number of columns is calculated automatically by taking the number of components into account. If the number of rows is not given (or set to zero), and the number of columns is given, the number of rows will be automatically calculated using the number of components. If neither is given, the number of rows is set equal to the number of components and the number of rows is set to zero.
+If the number of rows is given, the number of columns is calculated automatically by taking the total number of components into account. If the number of rows is not given (or set to zero), and the number of columns is given, the number of rows will be automatically calculated using the number of components. If neither is given, the number of rows is set equal to the number of components and the number of rows is set to zero.
 
 \subsection{Flex grid layout}
-The flex grid algorithms lays out the components in a grid with flexible row and columns sizes. The number of columns and rows can be specified by the user. Figure \ref{flex-grid} shows a visualization of a flex grid layout with six components in a 3x2 grid. 
+The flex grid algorithms lays out the components in a grid with flexible row and column sizes. The number of columns and rows can be specified by the user. Figure \ref{flex-grid} shows a visualization of a flex grid layout with six components in a 3x2 grid. 
 
 \begin{figure}[h]
 \centering
